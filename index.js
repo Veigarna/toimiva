@@ -1,22 +1,10 @@
+require("dotenv").config();
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const Note = require("./models/note");
 
-const mongoose = require("mongoose");
-
-// ÄLÄ KOSKAAN TALLETA SALASANOJA GitHubiin!
-const url = `mongodb+srv://fullstack:${password}@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority`;
-
-mongoose.set("strictQuery", false);
-mongoose.connect(url);
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-});
-
-const Note = mongoose.model("Note", noteSchema);
-
-let notes = [
+/*let notes = [
   {
     id: 1,
     content: "HTML is easy",
@@ -32,7 +20,7 @@ let notes = [
     content: "GET and POST are the most important methods of HTTP protocol",
     important: true,
   },
-];
+];*/
 
 app.use(express.static("dist"));
 
@@ -110,7 +98,7 @@ app.delete("/api/notes/:id", (request, response) => {
 
 app.use(unknownEndpoint);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
